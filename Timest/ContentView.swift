@@ -1,12 +1,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var timerManager = TimerManager()
+
     var body: some View {
         VStack {
             HeaderView()
             TaskButton()
                 .padding(.top, 60)
-            TimerView()
+            TimerView(timerManager: timerManager)
                 .padding(.top, 100)
             Spacer()
             FooterView()
@@ -69,24 +71,32 @@ struct TaskButton: View {
 }
 
 struct TimerView: View {
+    @ObservedObject var timerManager: TimerManager
+
     var body: some View {
         VStack {
             Text("15:14 - 15:39")
                 .font(.custom("Roboto", size: 24))
                 .foregroundColor(Color.green)
                 .opacity(0.5)
-            Text("25:00")
+            Text(formatTime(timerManager.timeRemaining))
                 .font(.custom("Roboto-Bold", size: 96))
                 .foregroundColor(Color.green)
             Button(action: {
-                // Action for play button
+                self.timerManager.startPause() // スタート/一時停止ボタンを押したときの動作
             }) {
-                Image(uiImage: UIImage(named: "play_button_image")!) // ここに再生ボタンの画像名を指定
+                Image(systemName: timerManager.isActive ? "pause.circle.fill" : "play.circle.fill")
                     .resizable()
                     .frame(width: 82, height: 82)
                     .foregroundColor(Color.green)
             }
         }
+    }
+
+    private func formatTime(_ totalSeconds: Int) -> String {
+        let minutes = totalSeconds / 60
+        let seconds = totalSeconds % 60
+        return String(format: "%02d:%02d", minutes, seconds)
     }
 }
 

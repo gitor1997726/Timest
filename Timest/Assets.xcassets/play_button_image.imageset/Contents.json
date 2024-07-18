@@ -1,12 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "pause_circle_64dp_10F012_FILL0_wght400_GRAD0_opsz48.svg",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "play_circle_64dp_10F012_FILL0_wght400_GRAD0_opsz48.svg",
+      "filename" : "play_circle_64dp_10F012_FILL0_wght400_GRAD0_opsz48 1.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -17,6 +12,12 @@
     {
       "idiom" : "universal",
       "scale" : "3x"
+    },
+    {
+      "filename" : "play_circle_64dp_10F012_FILL0_wght400_GRAD0_opsz48.svg",
+      "idiom" : "universal",
+      "scale" : "1x",
+      "unassigned" : true
     }
   ],
   "info" : {

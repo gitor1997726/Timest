@@ -11,6 +11,7 @@
 		2A9FC9BA2C47B96500078631 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9FC9B92C47B96500078631 /* ContentView.swift */; };
 		2A9FC9BC2C47B96700078631 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A9FC9BB2C47B96700078631 /* Assets.xcassets */; };
 		2A9FC9BF2C47B96700078631 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A9FC9BE2C47B96700078631 /* Preview Assets.xcassets */; };
+		2AB6B8C52C48B37F00924A27 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB6B8C42C48B37F00924A27 /* TimerManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		2A9FC9B92C47B96500078631 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2A9FC9BB2C47B96700078631 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2A9FC9BE2C47B96700078631 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2AB6B8C42C48B37F00924A27 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				2A9FC9B72C47B96500078631 /* TimestApp.swift */,
 				2A9FC9B92C47B96500078631 /* ContentView.swift */,
+				2AB6B8C42C48B37F00924A27 /* TimerManager.swift */,
 				2A9FC9BB2C47B96700078631 /* Assets.xcassets */,
 				2A9FC9BD2C47B96700078631 /* Preview Content */,
 			);
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AB6B8C52C48B37F00924A27 /* TimerManager.swift in Sources */,
 				2A9FC9BA2C47B96500078631 /* ContentView.swift in Sources */,
 				2A9FC9B82C47B96500078631 /* TimestApp.swift in Sources */,
 			);
