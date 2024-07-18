@@ -1,102 +1,83 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var timerManager = TimerManager()
+    @State private var selection = 0
 
     var body: some View {
-        VStack {
-            HeaderView()
-            TaskButton()
-                .padding(.top, 60)
-            TimerView(timerManager: timerManager)
-                .padding(.top, 100)
-            Spacer()
-            CustomFooterView() // フッタービューをカスタムフッタービューに変更
-        }
-        .background(Color.black)
-    }
-}
+        ZStack(alignment: .bottom) {
+            // Main content area
+            TabView(selection: $selection) {
+                TimerView(timerManager: TimerManager())
+                    .tabItem {
+                        Image(systemName: "clock")
+                    }
+                    .tag(0)
 
-struct HeaderView: View {
-    var body: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Image(systemName: "clock")
-                    .resizable()
-                    .frame(width: 32, height: 32)
-                    .foregroundColor(Color.green)
-                Text("Timest")
-                    .font(.custom("Roboto-Bold", size: 24))
-                    .foregroundColor(Color.green)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                Spacer()
-                Image(systemName: "bell")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(Color.gray)
-                Image(systemName: "gearshape")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(Color.gray)
+                ListView()
+                    .tabItem {
+                        Image(systemName: "list.bullet")
+                    }
+                    .tag(1)
+
+                CalendarView()
+                    .tabItem {
+                        Image(systemName: "calendar")
+                    }
+                    .tag(2)
+
+                ChartView()
+                    .tabItem {
+                        Image(systemName: "chart.bar")
+                    }
+                    .tag(3)
             }
-            .padding()
-            Divider()
-                .frame(height: 2)
-                .background(Color.green)
-        }
-        .background(Color.black)
-        .padding(.top, 15) // ここでSafe Areaのパディングを調整
-    }
-}
+            .accentColor(.green)
+            .onAppear {
+                UITabBar.appearance().unselectedItemTintColor = UIColor.gray
+                UITabBar.appearance().backgroundColor = UIColor.black
+            }
 
-struct TaskButton: View {
-    var body: some View {
-        Button(action: {
-            // Action for button
-        }) {
-            Text("XcodeとGitHubの連携")
-                .font(.custom("Roboto", size: 18))
-                .foregroundColor(Color.white)
+            // Custom Footer
+            VStack(spacing: 0) {
+                Divider()
+                    .frame(height: 2)
+                    .background(Color.green)
+
+                HStack {
+                    Button(action: { self.selection = 0 }) {
+                        Image(systemName: "clock")
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                            .foregroundColor(selection == 0 ? Color.green : Color.gray)
+                    }
+                    Spacer()
+                    Button(action: { self.selection = 1 }) {
+                        Image(systemName: "list.bullet")
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                            .foregroundColor(selection == 1 ? Color.green : Color.gray)
+                    }
+                    Spacer()
+                    Button(action: { self.selection = 2 }) {
+                        Image(systemName: "calendar")
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                            .foregroundColor(selection == 2 ? Color.green : Color.gray)
+                    }
+                    Spacer()
+                    Button(action: { self.selection = 3 }) {
+                        Image(systemName: "chart.bar")
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                            .foregroundColor(selection == 3 ? Color.green : Color.gray)
+                    }
+                }
                 .padding()
-                .frame(width: 266, height: 67)
                 .background(Color.black)
-                .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 30)
-                        .stroke(Color.green, lineWidth: 3)
-                )
-        }
-    }
-}
-
-struct TimerView: View {
-    @ObservedObject var timerManager: TimerManager
-
-    var body: some View {
-        VStack {
-            Text("15:14 - 15:39")
-                .font(.custom("Roboto", size: 24))
-                .foregroundColor(Color.green)
-                .opacity(0.5)
-            Text(formatTime(timerManager.timeRemaining))
-                .font(.custom("Roboto-Bold", size: 96))
-                .foregroundColor(Color.green)
-            Button(action: {
-                self.timerManager.startPause() // スタート/一時停止ボタンを押したときの動作
-            }) {
-                Image(systemName: timerManager.isActive ? "pause.circle.fill" : "play.circle.fill")
-                    .resizable()
-                    .frame(width: 82, height: 82)
-                    .foregroundColor(Color.green)
             }
+            .frame(height: 60)
         }
-    }
-
-    private func formatTime(_ totalSeconds: Int) -> String {
-        let minutes = totalSeconds / 60
-        let seconds = totalSeconds % 60
-        return String(format: "%02d:%02d", minutes, seconds)
+        .background(Color.black)
     }
 }
 
