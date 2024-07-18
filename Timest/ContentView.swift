@@ -11,7 +11,7 @@ struct ContentView: View {
             TimerView(timerManager: timerManager)
                 .padding(.top, 100)
             Spacer()
-            FooterView()
+            CustomFooterView() // フッタービューをカスタムフッタービューに変更
         }
         .background(Color.black)
     }
@@ -97,44 +97,6 @@ struct TimerView: View {
         let minutes = totalSeconds / 60
         let seconds = totalSeconds % 60
         return String(format: "%02d:%02d", minutes, seconds)
-    }
-}
-
-struct FooterView: View {
-    var body: some View {
-        VStack(spacing: 0) {
-            Divider()
-                .frame(height: 2)
-                .background(Color.green)
-            HStack {
-                Image(systemName: "list.bullet")
-                    .resizable()
-                    .frame(width: 27, height: 30)
-                    .foregroundColor(Color.gray)
-                Spacer()
-                Image(systemName: "line.horizontal.3")
-                    .resizable()
-                    .frame(width: 27, height: 30)
-                    .foregroundColor(Color.gray)
-                Spacer()
-                Image(systemName: "clock")
-                    .resizable()
-                    .frame(width: 27, height: 30)
-                    .foregroundColor(Color.gray)
-                Spacer()
-                Image(systemName: "calendar")
-                    .resizable()
-                    .frame(width: 27, height: 30)
-                    .foregroundColor(Color.gray)
-                Spacer()
-                Image(systemName: "chart.bar")
-                    .resizable()
-                    .frame(width: 27, height: 30)
-                    .foregroundColor(Color.gray)
-            }
-            .padding()
-        }
-        .background(Color.black)
     }
 }
 
