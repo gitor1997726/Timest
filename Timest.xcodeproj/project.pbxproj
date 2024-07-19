@@ -67,13 +67,13 @@
 			children = (
 				2A9FC9B72C47B96500078631 /* TimestApp.swift */,
 				2A9FC9B92C47B96500078631 /* ContentView.swift */,
-				2AB6B8C42C48B37F00924A27 /* TimerManager.swift */,
+				2A5C84C32C493D6100BE1937 /* HeaderView.swift */,
 				2AB6B8CC2C48EA7D00924A27 /* CustomFooterView.swift */,
-				2AB6B8CE2C48FAF700924A27 /* ListView.swift */,
+				2AB6B8C42C48B37F00924A27 /* TimerManager.swift */,
 				2AB6B8D02C48FE5A00924A27 /* TimerView.swift */,
+				2AB6B8CE2C48FAF700924A27 /* ListView.swift */,
 				2AB6B8D22C48FE6B00924A27 /* CalendarView.swift */,
 				2AB6B8D42C48FE7A00924A27 /* ChartView.swift */,
-				2A5C84C32C493D6100BE1937 /* HeaderView.swift */,
 				2A9FC9BB2C47B96700078631 /* Assets.xcassets */,
 				2A9FC9BD2C47B96700078631 /* Preview Content */,
 			);

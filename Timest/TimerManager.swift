@@ -32,3 +32,4 @@ class TimerManager: ObservableObject {
         }
     }
 }
+
