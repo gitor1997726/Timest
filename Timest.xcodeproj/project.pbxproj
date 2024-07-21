@@ -18,6 +18,8 @@
 		2AB6B8D12C48FE5A00924A27 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB6B8D02C48FE5A00924A27 /* TimerView.swift */; };
 		2AB6B8D32C48FE6B00924A27 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB6B8D22C48FE6B00924A27 /* CalendarView.swift */; };
 		2AB6B8D52C48FE7A00924A27 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB6B8D42C48FE7A00924A27 /* ChartView.swift */; };
+		D3AE99012C4CD9FE0057F484 /* AddFolderModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AE99002C4CD9FE0057F484 /* AddFolderModalView.swift */; };
+		D3AE99032C4CE9740057F484 /* AddFolderButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AE99022C4CE9740057F484 /* AddFolderButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,8 @@
 		2AB6B8D02C48FE5A00924A27 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		2AB6B8D22C48FE6B00924A27 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		2AB6B8D42C48FE7A00924A27 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		D3AE99002C4CD9FE0057F484 /* AddFolderModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFolderModalView.swift; sourceTree = "<group>"; };
+		D3AE99022C4CE9740057F484 /* AddFolderButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFolderButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,8 @@
 				2AB6B8CE2C48FAF700924A27 /* ListView.swift */,
 				2AB6B8D22C48FE6B00924A27 /* CalendarView.swift */,
 				2AB6B8D42C48FE7A00924A27 /* ChartView.swift */,
+				D3AE99002C4CD9FE0057F484 /* AddFolderModalView.swift */,
+				D3AE99022C4CE9740057F484 /* AddFolderButtonView.swift */,
 				2A9FC9BB2C47B96700078631 /* Assets.xcassets */,
 				2A9FC9BD2C47B96700078631 /* Preview Content */,
 			);
@@ -166,7 +172,9 @@
 				2AB6B8CF2C48FAF700924A27 /* ListView.swift in Sources */,
 				2AB6B8CD2C48EA7D00924A27 /* CustomFooterView.swift in Sources */,
 				2A9FC9B82C47B96500078631 /* TimestApp.swift in Sources */,
+				D3AE99012C4CD9FE0057F484 /* AddFolderModalView.swift in Sources */,
 				2AB6B8D52C48FE7A00924A27 /* ChartView.swift in Sources */,
+				D3AE99032C4CE9740057F484 /* AddFolderButtonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
