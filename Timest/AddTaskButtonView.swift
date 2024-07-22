@@ -1,11 +1,11 @@
 import SwiftUI
 
-struct AddFolderButtonView: View {
-    @Binding var showAddFolderModal: Bool
+struct AddTaskButtonView: View {
+    @State private var showTaskDetail = false
 
     var body: some View {
         Button(action: {
-            showAddFolderModal = true
+            showTaskDetail = true
         }) {
             Image(systemName: "plus.circle.fill")
                 .resizable()
@@ -15,16 +15,14 @@ struct AddFolderButtonView: View {
         .background(Color.clear)
         .cornerRadius(38)
         .shadow(radius: 10)
+        .fullScreenCover(isPresented: $showTaskDetail) {
+            TaskDetailView()
+        }
     }
 }
 
-struct AddFolderButtonView_Previews: PreviewProvider {
-    @State static var showAddFolderModal = false
-
+struct AddTaskButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        AddFolderButtonView(showAddFolderModal: $showAddFolderModal)
-            .previewLayout(.sizeThatFits)
-            .padding()
-            .background(Color.black)
+        AddTaskButtonView()
     }
 }

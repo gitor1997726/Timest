@@ -66,3 +66,27 @@ struct TimerDisplayView: View {
         return String(format: "%02d:%02d", minutes, seconds)
     }
 }
+
+struct TimerView_Previews: PreviewProvider {
+    static var previews: some View {
+        TimerView(timerManager: TimerManager())
+            .previewLayout(.device)
+            .preferredColorScheme(.dark)
+    }
+}
+
+struct TaskButton_Previews: PreviewProvider {
+    static var previews: some View {
+        TaskButton()
+            .previewLayout(.sizeThatFits)
+            .background(Color.black)
+    }
+}
+
+struct TimerDisplayView_Previews: PreviewProvider {
+    static var previews: some View {
+        TimerDisplayView(timerManager: TimerManager())
+            .previewLayout(.sizeThatFits)
+            .background(Color.black)
+    }
+}

@@ -35,3 +35,11 @@ struct HeaderView: View {
         .padding(.top, 15) // ここでSafe Areaのパディングを調整
     }
 }
+
+struct HeaderView_Previews: PreviewProvider {
+    static var previews: some View {
+        HeaderView(iconName: "star", title: "サンプルタイトル")
+            .previewLayout(.sizeThatFits)
+            .background(Color.black) // プレビュー背景色を設定
+    }
+}
