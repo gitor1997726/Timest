@@ -21,8 +21,10 @@
 		D36B12252C4E3C950025F787 /* AddTaskButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36B12242C4E3C950025F787 /* AddTaskButtonView.swift */; };
 		D36B12272C4E3CA60025F787 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36B12262C4E3CA60025F787 /* TaskDetailView.swift */; };
 		D36B12292C4E483A0025F787 /* FooterViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36B12282C4E483A0025F787 /* FooterViewModifier.swift */; };
+		D39EA5E42C5133A900716671 /* FolderItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39EA5E32C5133A900716671 /* FolderItemView.swift */; };
 		D3AE99012C4CD9FE0057F484 /* AddFolderModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AE99002C4CD9FE0057F484 /* AddFolderModalView.swift */; };
 		D3AE99032C4CE9740057F484 /* AddFolderButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AE99022C4CE9740057F484 /* AddFolderButtonView.swift */; };
+		D3B5228B2C522B0600E255CB /* SharedDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B5228A2C522B0600E255CB /* SharedDateFormatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,8 +43,10 @@
 		D36B12242C4E3C950025F787 /* AddTaskButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskButtonView.swift; sourceTree = "<group>"; };
 		D36B12262C4E3CA60025F787 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		D36B12282C4E483A0025F787 /* FooterViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterViewModifier.swift; sourceTree = "<group>"; };
+		D39EA5E32C5133A900716671 /* FolderItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderItemView.swift; sourceTree = "<group>"; };
 		D3AE99002C4CD9FE0057F484 /* AddFolderModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFolderModalView.swift; sourceTree = "<group>"; };
 		D3AE99022C4CE9740057F484 /* AddFolderButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFolderButtonView.swift; sourceTree = "<group>"; };
+		D3B5228A2C522B0600E255CB /* SharedDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDateFormatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,22 +79,13 @@
 		2A9FC9B62C47B96500078631 /* Timest */ = {
 			isa = PBXGroup;
 			children = (
-				D36B12262C4E3CA60025F787 /* TaskDetailView.swift */,
-				2AB6B8D22C48FE6B00924A27 /* CalendarView.swift */,
-				2AB6B8D42C48FE7A00924A27 /* ChartView.swift */,
+				D39EA5E22C50A0FE00716671 /* Components */,
+				D39EA5E12C509F7E00716671 /* Views */,
 				2A9FC9B72C47B96500078631 /* TimestApp.swift */,
-				2A5C84C32C493D6100BE1937 /* HeaderView.swift */,
-				2A9FC9B92C47B96500078631 /* ContentView.swift */,
-				D36B12282C4E483A0025F787 /* FooterViewModifier.swift */,
 				2AB6B8C42C48B37F00924A27 /* TimerManager.swift */,
-				2AB6B8D02C48FE5A00924A27 /* TimerView.swift */,
-				2AB6B8CE2C48FAF700924A27 /* ListView.swift */,
-				D3AE99002C4CD9FE0057F484 /* AddFolderModalView.swift */,
-				D3AE99022C4CE9740057F484 /* AddFolderButtonView.swift */,
-				D36B12242C4E3C950025F787 /* AddTaskButtonView.swift */,
-				D36B12222C4E3C840025F787 /* FolderDetailView.swift */,
 				2A9FC9BB2C47B96700078631 /* Assets.xcassets */,
 				2A9FC9BD2C47B96700078631 /* Preview Content */,
+				D3B5228A2C522B0600E255CB /* SharedDateFormatter.swift */,
 			);
 			path = Timest;
 			sourceTree = "<group>";
@@ -101,6 +96,33 @@
 				2A9FC9BE2C47B96700078631 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D39EA5E12C509F7E00716671 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2A9FC9B92C47B96500078631 /* ContentView.swift */,
+				D36B12222C4E3C840025F787 /* FolderDetailView.swift */,
+				D36B12262C4E3CA60025F787 /* TaskDetailView.swift */,
+				2AB6B8CE2C48FAF700924A27 /* ListView.swift */,
+				2AB6B8D02C48FE5A00924A27 /* TimerView.swift */,
+				2AB6B8D22C48FE6B00924A27 /* CalendarView.swift */,
+				2AB6B8D42C48FE7A00924A27 /* ChartView.swift */,
+				D3AE99002C4CD9FE0057F484 /* AddFolderModalView.swift */,
+				D3AE99022C4CE9740057F484 /* AddFolderButtonView.swift */,
+				D36B12242C4E3C950025F787 /* AddTaskButtonView.swift */,
+				D39EA5E32C5133A900716671 /* FolderItemView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D39EA5E22C50A0FE00716671 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				2A5C84C32C493D6100BE1937 /* HeaderView.swift */,
+				D36B12282C4E483A0025F787 /* FooterViewModifier.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +199,7 @@
 				2AB6B8D12C48FE5A00924A27 /* TimerView.swift in Sources */,
 				D36B12252C4E3C950025F787 /* AddTaskButtonView.swift in Sources */,
 				2A5C84C42C493D6100BE1937 /* HeaderView.swift in Sources */,
+				D39EA5E42C5133A900716671 /* FolderItemView.swift in Sources */,
 				2AB6B8D32C48FE6B00924A27 /* CalendarView.swift in Sources */,
 				D36B12292C4E483A0025F787 /* FooterViewModifier.swift in Sources */,
 				2AB6B8C52C48B37F00924A27 /* TimerManager.swift in Sources */,
@@ -185,6 +208,7 @@
 				D36B12232C4E3C840025F787 /* FolderDetailView.swift in Sources */,
 				2A9FC9B82C47B96500078631 /* TimestApp.swift in Sources */,
 				D3AE99012C4CD9FE0057F484 /* AddFolderModalView.swift in Sources */,
+				D3B5228B2C522B0600E255CB /* SharedDateFormatter.swift in Sources */,
 				2AB6B8D52C48FE7A00924A27 /* ChartView.swift in Sources */,
 				D3AE99032C4CE9740057F484 /* AddFolderButtonView.swift in Sources */,
 			);

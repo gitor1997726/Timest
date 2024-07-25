@@ -6,13 +6,15 @@ struct FolderDetailView: View {
         Task(name: "UIの作成", isCompleted: false, pomodoros: 3, deadline: Date()),
         Task(name: "スケジュール表の作成", isCompleted: true, pomodoros: 5, deadline: Date().addingTimeInterval(86400 * 2))
     ]
-    @State private var selection = 1  // フッターの選択状態を管理するための状態
+    @Environment(\.presentationMode) var presentationMode
+    @State private var selection = 1
 
     var body: some View {
         ZStack {
             VStack {
-                HeaderView(iconName: "chevron.left", title: folderName)
-
+                HeaderView(iconName: "chevron.left", title: folderName) {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
                 List {
                     ForEach(tasks) { task in
                         TaskItemView(task: task)
@@ -21,7 +23,6 @@ struct FolderDetailView: View {
                                     deleteTask(task)
                                 } label: {
                                     Label("", systemImage: "trash")
-
                                 }
                                 .tint(.black)
                             }
@@ -29,10 +30,11 @@ struct FolderDetailView: View {
                 }
                 .listStyle(PlainListStyle())
                 .background(Color.black)
-
                 Spacer()
             }
             .background(Color.black)
+            .navigationBarBackButtonHidden(true) // デフォルトの戻るボタンを非表示に設定
+            .navigationBarHidden(true) // ナビゲーションバーを非表示に設定
 
             VStack {
                 Spacer()
@@ -45,7 +47,8 @@ struct FolderDetailView: View {
             }
         }
         .background(Color.black)
-        .withFooter(selection: $selection)  // フッター修飾子を適用
+//        .withFooter(selection: $selection)
+        //フッターが重複して表示されるため削除
     }
 
     private func deleteTask(_ task: Task) {
@@ -61,7 +64,7 @@ struct TaskItemView: View {
     var body: some View {
         HStack {
             Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
-                .resizable()                .foregroundColor(.green)
+                .foregroundColor(.green)
                 .frame(width: 20, height: 20)
             VStack(alignment: .leading) {
                 Text(task.name)
@@ -87,7 +90,6 @@ struct TaskItemView: View {
         .padding()
         .background(Color.secondary)
         .cornerRadius(8)
-
     }
 }
 
@@ -101,6 +103,6 @@ struct Task: Identifiable {
 
 struct FolderDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        FolderDetailView(folderName: "Folder")
+        FolderDetailView(folderName: "Sample Folder")
     }
 }

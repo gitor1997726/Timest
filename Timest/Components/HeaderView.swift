@@ -3,14 +3,24 @@ import SwiftUI
 struct HeaderView: View {
     var iconName: String
     var title: String
+    var onBack: (() -> Void)? = nil  // デフォルトでnilを設定
 
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Image(systemName: iconName)
-                    .resizable()
-                    .frame(width: 32, height: 32)
-                    .foregroundColor(Color.green)
+                if let onBack = onBack {
+                    Button(action: onBack) {
+                        Image(systemName: iconName)
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                            .foregroundColor(Color.green)
+                    }
+                } else {
+                    Image(systemName: iconName)
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                        .foregroundColor(Color.green)
+                }
                 Text(title)
                     .font(.custom("Roboto-Bold", size: 24))
                     .foregroundColor(Color.green)
