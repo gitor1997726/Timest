@@ -1,22 +1,46 @@
 import SwiftUI
 
 struct TaskDetailView: View {
+    @ObservedObject var taskManager: TaskManager
+    @Binding var task: Task?
     @State private var taskCompleted = false
-    @State private var selection = 1
-    @State private var commentText = ""
-    @State private var isEditing = false
     @State private var taskName = ""
-    @State private var selectedPomodoroCount = 0 // ポモドーロ数の選択状態を追加
+    @State private var selectedPomodoroCount = 0
     @State private var selectedDate = Date()
+    @State private var commentText = ""
     @State private var showDatePicker = false
-    @State private var originalDate = Date() // 追加する状態変数
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack(spacing: 0) {
-            // Header
-            HeaderView(iconName: "chevron.left", title: "")
-                .padding(.bottom, 10)
-
+            HeaderView(iconName: "chevron.left", title: "タスクの詳細") {
+                if taskManager.selectedTask != nil {
+                    taskManager.updateTask(
+                        taskManager.selectedTask!,
+                        withName: taskName,
+                        pomodoroCount: selectedPomodoroCount,
+                        dueDate: selectedDate,
+                        comments: commentText
+                    )
+                } else {
+                    taskManager.addTask(name: taskName, pomodoroCount: selectedPomodoroCount, dueDate: selectedDate, comments: commentText)
+                }
+                taskManager.selectedTask = nil
+                presentationMode.wrappedValue.dismiss()
+            }
+            .padding(.bottom, 10)
+            .onAppear {
+                if let selectedTask = taskManager.selectedTask {
+                    print("TaskDetailView loaded with selected task: \(selectedTask)")
+                    taskName = selectedTask.name
+                    taskCompleted = selectedTask.isCompleted
+                    selectedPomodoroCount = selectedTask.pomodoroCount
+                    selectedDate = selectedTask.dueDate
+                    commentText = selectedTask.comments
+                } else {
+                    print("TaskDetailView loaded with no selected task")
+                }
+            }
             // Task Information Section
             HStack {
                 Button(action: {
@@ -54,20 +78,20 @@ struct TaskDetailView: View {
                 .padding(.bottom, 25)
 
                 HStack {
-                    Spacer() // 左側にスペースを追加
+                    Spacer()
                     ForEach(0..<5) { index in
                         Image(systemName: index < selectedPomodoroCount ? "clock.fill" : "clock")
                             .resizable()
                             .foregroundColor(index < selectedPomodoroCount ? .green : .gray)
                             .frame(width: 28, height: 28)
-                            .padding(.horizontal, 12) // アイコン間のスペースを確保
+                            .padding(.horizontal, 12)
                             .onTapGesture {
                                 selectedPomodoroCount = index + 1
                             }
                     }
-                    Spacer() // 右側にスペースを追加
+                    Spacer()
                 }
-                .padding(.bottom, 30) // アイコンと期限セクションの間のスペースを確保
+                .padding(.bottom, 30)
 
                 HStack {
                     Image(systemName: "calendar")
@@ -81,7 +105,6 @@ struct TaskDetailView: View {
                         .font(.custom("Roboto", size: 24))
                         .foregroundColor(.green)
                         .onTapGesture {
-                            originalDate = selectedDate // 現在の選択日付を保存
                             showDatePicker = true
                         }
                 }
@@ -99,11 +122,8 @@ struct TaskDetailView: View {
                     .padding(4)
                     .cornerRadius(12)
                     .opacity(commentText.isEmpty ? 0.5 : 1)
-                    .onTapGesture {
-                        isEditing = true
-                    }
 
-                if commentText.isEmpty && !isEditing {
+                if commentText.isEmpty {
                     Text("コメントを追加...")
                         .foregroundColor(.gray)
                         .padding(.horizontal, 8)
@@ -129,16 +149,6 @@ struct TaskDetailView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        selectedDate = originalDate // 元の日付に戻す
-                        showDatePicker = false
-                    }) {
-                        Image(systemName: "xmark.circle.fill")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .foregroundColor(.gray)
-                    }
-                    Spacer()
-                    Button(action: {
                         showDatePicker = false
                     }) {
                         Image(systemName: "checkmark.circle.fill")
@@ -151,14 +161,5 @@ struct TaskDetailView: View {
                 .padding()
             }
         }
-        .withFooter(selection: $selection)
-    }
-}
-
-struct TaskDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        TaskDetailView()
-            .previewLayout(.sizeThatFits)
-            .background(Color.black)
     }
 }

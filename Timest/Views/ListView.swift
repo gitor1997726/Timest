@@ -15,7 +15,7 @@ struct ListView: View {
                         ForEach(folders, id: \.self) { folder in
                             HStack {
                                 FolderItemView(folderName: folder)
-                                NavigationLink(destination: FolderDetailView(folderName: folder)) {
+                                NavigationLink(destination: FolderDetailView(folderName: folder, taskManager: TaskManager())) {
                                     EmptyView()
                                 }
                                 .frame(width: 0)

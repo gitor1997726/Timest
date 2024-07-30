@@ -2,12 +2,11 @@ import SwiftUI
 
 struct FolderDetailView: View {
     var folderName: String
-    @State private var tasks: [Task] = [
-        Task(name: "UIの作成", isCompleted: false, pomodoros: 3, deadline: Date()),
-        Task(name: "スケジュール表の作成", isCompleted: true, pomodoros: 5, deadline: Date().addingTimeInterval(86400 * 2))
-    ]
+    @ObservedObject var taskManager: TaskManager
     @Environment(\.presentationMode) var presentationMode
     @State private var selection = 1
+    @State private var showTaskDetailView = false
+    @State private var selectedTask: Task?
 
     var body: some View {
         ZStack {
@@ -16,11 +15,16 @@ struct FolderDetailView: View {
                     self.presentationMode.wrappedValue.dismiss()
                 }
                 List {
-                    ForEach(tasks) { task in
+                    ForEach(taskManager.tasks) { task in
                         TaskItemView(task: task)
+                            .onTapGesture {
+                                selectedTask = task
+                                print("Task selected: \(String(describing: selectedTask))")
+                                showTaskDetailView = true
+                            }
                             .swipeActions(edge: .trailing) {
                                 Button(role: .destructive) {
-                                    deleteTask(task)
+                                    taskManager.deleteTask(task)
                                 } label: {
                                     Label("", systemImage: "trash")
                                 }
@@ -33,27 +37,26 @@ struct FolderDetailView: View {
                 Spacer()
             }
             .background(Color.black)
-            .navigationBarBackButtonHidden(true) // デフォルトの戻るボタンを非表示に設定
-            .navigationBarHidden(true) // ナビゲーションバーを非表示に設定
+            .navigationBarBackButtonHidden(true)
+            .navigationBarHidden(true)
 
             VStack {
                 Spacer()
                 HStack {
                     Spacer()
-                    AddTaskButtonView()
+                    AddTaskButtonView(taskManager: taskManager)
                         .padding(.bottom, 20)
                         .padding(.trailing, 20)
+                        .onTapGesture {
+                            selectedTask = nil
+                            showTaskDetailView = true
+                        }
                 }
             }
         }
         .background(Color.black)
-//        .withFooter(selection: $selection)
-        //フッターが重複して表示されるため削除
-    }
-
-    private func deleteTask(_ task: Task) {
-        if let index = tasks.firstIndex(where: { $0.id == task.id }) {
-            tasks.remove(at: index)
+        .fullScreenCover(isPresented: $showTaskDetailView) {
+            TaskDetailView(taskManager: taskManager, task: $selectedTask)
         }
     }
 }
@@ -71,10 +74,10 @@ struct TaskItemView: View {
                     .foregroundColor(.white)
                 HStack {
                     Image(systemName: "clock")
-                    Text("ｘ\(task.pomodoros)")
+                    Text("ｘ\(task.pomodoroCount)")
                     Spacer()
                     Image(systemName: "calendar")
-                    Text(task.deadline, style: .date)
+                    Text(task.dueDate, style: .date)
                 }
                 .foregroundColor(.green)
             }
@@ -93,16 +96,8 @@ struct TaskItemView: View {
     }
 }
 
-struct Task: Identifiable {
-    var id = UUID()
-    var name: String
-    var isCompleted: Bool
-    var pomodoros: Int
-    var deadline: Date
-}
-
 struct FolderDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        FolderDetailView(folderName: "Sample Folder")
+        FolderDetailView(folderName: "Sample Folder", taskManager: TaskManager())
     }
 }

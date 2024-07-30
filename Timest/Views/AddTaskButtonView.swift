@@ -1,7 +1,9 @@
 import SwiftUI
 
 struct AddTaskButtonView: View {
+    @ObservedObject var taskManager: TaskManager
     @State private var showTaskDetail = false
+    @State private var newTask: Task? = Task(name: "", pomodoroCount: 0, dueDate: Date(), comments: "")
 
     var body: some View {
         Button(action: {
@@ -16,13 +18,13 @@ struct AddTaskButtonView: View {
         .cornerRadius(38)
         .shadow(radius: 10)
         .fullScreenCover(isPresented: $showTaskDetail) {
-            TaskDetailView()
+            TaskDetailView(taskManager: taskManager, task: $newTask)
         }
     }
 }
 
 struct AddTaskButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        AddTaskButtonView()
+        AddTaskButtonView(taskManager: TaskManager())
     }
 }
