@@ -1,18 +1,15 @@
-//
-//  TimestApp.swift
-//  Timest
-//
-//  Created by ryo on 2024/07/17.
-//
-
 import SwiftUI
 
 @main
-struct TimestApp: App {
+struct TaskApp: App {
+    @StateObject private var folderManager = FolderManager()
+    @StateObject private var taskManager = TaskManager()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(folderManager)  // FolderManagerを共有
+                .environmentObject(taskManager)    // TaskManagerも共有
         }
     }
 }
-

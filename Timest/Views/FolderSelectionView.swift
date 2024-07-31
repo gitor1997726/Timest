@@ -5,22 +5,7 @@ struct FolderSelectionView: View {
 
     var body: some View {
         VStack {
-//            HStack {
-//                Image(systemName: "folder")
-//                    .foregroundColor(Color.green)
-//                Text("フォルダ")
-//                    .foregroundColor(.green)
-//                    .font(.headline)
-//                Spacer()
-//                // Placeholder for an optional button or icon
-//            }
-//            .padding()
-//            .background(Color.black)
-//            .cornerRadius(10)
-//            .overlay(
-//                RoundedRectangle(cornerRadius: 10)
-//                    .stroke(Color.green, lineWidth: 2)
-//            )
+
 
             ScrollView {
                 VStack(spacing: 16) {

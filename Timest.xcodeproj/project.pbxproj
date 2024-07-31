@@ -17,6 +17,7 @@
 		2AB6B8D12C48FE5A00924A27 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB6B8D02C48FE5A00924A27 /* TimerView.swift */; };
 		2AB6B8D32C48FE6B00924A27 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB6B8D22C48FE6B00924A27 /* CalendarView.swift */; };
 		2AB6B8D52C48FE7A00924A27 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB6B8D42C48FE7A00924A27 /* ChartView.swift */; };
+		D33E5E2D2C588B46000B252F /* FolderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33E5E2C2C588B46000B252F /* FolderManager.swift */; };
 		D36B12232C4E3C840025F787 /* FolderDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36B12222C4E3C840025F787 /* FolderDetailView.swift */; };
 		D36B12252C4E3C950025F787 /* AddTaskButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36B12242C4E3C950025F787 /* AddTaskButtonView.swift */; };
 		D36B12272C4E3CA60025F787 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36B12262C4E3CA60025F787 /* TaskDetailView.swift */; };
@@ -42,6 +43,7 @@
 		2AB6B8D02C48FE5A00924A27 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		2AB6B8D22C48FE6B00924A27 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		2AB6B8D42C48FE7A00924A27 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		D33E5E2C2C588B46000B252F /* FolderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderManager.swift; sourceTree = "<group>"; };
 		D36B12222C4E3C840025F787 /* FolderDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderDetailView.swift; sourceTree = "<group>"; };
 		D36B12242C4E3C950025F787 /* AddTaskButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskButtonView.swift; sourceTree = "<group>"; };
 		D36B12262C4E3CA60025F787 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
@@ -85,10 +87,10 @@
 		2A9FC9B62C47B96500078631 /* Timest */ = {
 			isa = PBXGroup;
 			children = (
+				2A9FC9B72C47B96500078631 /* TimestApp.swift */,
+				D33E5E2B2C588B1D000B252F /* Managers */,
 				D39EA5E22C50A0FE00716671 /* Components */,
 				D39EA5E12C509F7E00716671 /* Views */,
-				2A9FC9B72C47B96500078631 /* TimestApp.swift */,
-				2AB6B8C42C48B37F00924A27 /* TimerManager.swift */,
 				2A9FC9BB2C47B96700078631 /* Assets.xcassets */,
 				2A9FC9BD2C47B96700078631 /* Preview Content */,
 				D3B5228A2C522B0600E255CB /* SharedDateFormatter.swift */,
@@ -104,17 +106,26 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		D33E5E2B2C588B1D000B252F /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				2AB6B8C42C48B37F00924A27 /* TimerManager.swift */,
+				D3AC1B872C5339F5004363C3 /* TaskManager.swift */,
+				D33E5E2C2C588B46000B252F /* FolderManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		D39EA5E12C509F7E00716671 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D3A53F532C57C35D00D6053E /* TaskSelectionView.swift */,
-				D3A53F512C57B4F700D6053E /* FolderSelectionView.swift */,
 				2AB6B8D22C48FE6B00924A27 /* CalendarView.swift */,
+				D3A53F512C57B4F700D6053E /* FolderSelectionView.swift */,
+				2AB6B8CE2C48FAF700924A27 /* ListView.swift */,
+				D3A53F532C57C35D00D6053E /* TaskSelectionView.swift */,
 				2A9FC9B92C47B96500078631 /* ContentView.swift */,
 				D36B12222C4E3C840025F787 /* FolderDetailView.swift */,
-				D3AC1B872C5339F5004363C3 /* TaskManager.swift */,
 				D36B12262C4E3CA60025F787 /* TaskDetailView.swift */,
-				2AB6B8CE2C48FAF700924A27 /* ListView.swift */,
 				2AB6B8D02C48FE5A00924A27 /* TimerView.swift */,
 				2AB6B8D42C48FE7A00924A27 /* ChartView.swift */,
 				D3AE99002C4CD9FE0057F484 /* AddFolderModalView.swift */,
@@ -213,6 +224,7 @@
 				D3AC1B882C5339F5004363C3 /* TaskManager.swift in Sources */,
 				2AB6B8D32C48FE6B00924A27 /* CalendarView.swift in Sources */,
 				D36B12292C4E483A0025F787 /* FooterViewModifier.swift in Sources */,
+				D33E5E2D2C588B46000B252F /* FolderManager.swift in Sources */,
 				2AB6B8C52C48B37F00924A27 /* TimerManager.swift in Sources */,
 				2A9FC9BA2C47B96500078631 /* ContentView.swift in Sources */,
 				2AB6B8CF2C48FAF700924A27 /* ListView.swift in Sources */,

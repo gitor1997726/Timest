@@ -10,6 +10,7 @@ struct TaskDetailView: View {
     @State private var commentText = ""
     @State private var showDatePicker = false
     @Environment(\.presentationMode) var presentationMode
+    var folderID: UUID  // 
 
     var body: some View {
         VStack(spacing: 0) {
@@ -23,7 +24,7 @@ struct TaskDetailView: View {
                         comments: commentText
                     )
                 } else {
-                    taskManager.addTask(name: taskName, pomodoroCount: selectedPomodoroCount, dueDate: selectedDate, comments: commentText)
+                    taskManager.addTask(name: taskName, pomodoroCount: selectedPomodoroCount, dueDate: selectedDate, comments: commentText, folderID: folderID)
                 }
                 taskManager.selectedTask = nil
                 presentationMode.wrappedValue.dismiss()

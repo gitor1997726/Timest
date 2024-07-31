@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct FolderDetailView: View {
-    var folderName: String
+    var folderID: UUID
+    var folderName: String  // フォルダ名を追加
     @ObservedObject var taskManager: TaskManager
     @Environment(\.presentationMode) var presentationMode
     @State private var selection = 1
@@ -11,15 +12,15 @@ struct FolderDetailView: View {
     var body: some View {
         ZStack {
             VStack {
+                // フォルダ名をヘッダーに表示
                 HeaderView(iconName: "chevron.left", title: folderName) {
                     self.presentationMode.wrappedValue.dismiss()
                 }
                 List {
-                    ForEach(taskManager.tasks) { task in
+                    ForEach(taskManager.tasks.filter { $0.folderID == folderID }) { task in
                         TaskItemView(task: task)
                             .onTapGesture {
                                 selectedTask = task
-                                print("Task selected: \(String(describing: selectedTask))")
                                 showTaskDetailView = true
                             }
                             .swipeActions(edge: .trailing) {
@@ -44,7 +45,7 @@ struct FolderDetailView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    AddTaskButtonView(taskManager: taskManager)
+                    AddTaskButtonView(taskManager: taskManager, folderID: folderID)  // folderIDを渡す
                         .padding(.bottom, 20)
                         .padding(.trailing, 20)
                         .onTapGesture {
@@ -56,7 +57,7 @@ struct FolderDetailView: View {
         }
         .background(Color.black)
         .fullScreenCover(isPresented: $showTaskDetailView) {
-            TaskDetailView(taskManager: taskManager, task: $selectedTask)
+            TaskDetailView(taskManager: taskManager, task: $selectedTask, folderID: folderID)
         }
     }
 }
@@ -74,7 +75,7 @@ struct TaskItemView: View {
                     .foregroundColor(.white)
                 HStack {
                     Image(systemName: "clock")
-                    Text("ｘ\(task.pomodoroCount)")
+                    Text("x\(task.pomodoroCount)")
                     Spacer()
                     Image(systemName: "calendar")
                     Text(task.dueDate, style: .date)
@@ -98,6 +99,6 @@ struct TaskItemView: View {
 
 struct FolderDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        FolderDetailView(folderName: "Sample Folder", taskManager: TaskManager())
+        FolderDetailView(folderID: UUID(), folderName: "Sample Folder", taskManager: TaskManager())  // サンプルフォルダIDとフォルダ名
     }
 }

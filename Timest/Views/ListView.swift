@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ListView: View {
     @State private var showAddFolderModal = false
-    @State private var folders: [String] = []
+    @StateObject private var folderManager = FolderManager()  // FolderManagerを初期化
 
     var body: some View {
         NavigationView {
@@ -10,14 +10,16 @@ struct ListView: View {
                 VStack {
                     // ヘッダー
                     HeaderView(iconName: "list.bullet", title: "List")
+
                     // フォルダリスト
                     List {
-                        ForEach(folders, id: \.self) { folder in
+                        ForEach(folderManager.folders) { folder in
                             HStack {
-                                FolderItemView(folderName: folder)
-                                NavigationLink(destination: FolderDetailView(folderName: folder, taskManager: TaskManager())) {
+                                FolderItemView(folderName: folder.name)
+                                NavigationLink(destination: FolderDetailView(folderID: folder.id, folderName: folder.name, taskManager: TaskManager())) {
                                     EmptyView()
                                 }
+
                                 .frame(width: 0)
                                 .opacity(0)
                             }
@@ -47,16 +49,14 @@ struct ListView: View {
             }
             .background(Color.black)
             .fullScreenCover(isPresented: $showAddFolderModal) {
-                AddFolderModalView(isPresented: $showAddFolderModal, folders: $folders)
+                AddFolderModalView(isPresented: $showAddFolderModal, folderManager: folderManager)
             }
         }
         .navigationBarHidden(true) // NavigationBarを非表示に設定
     }
 
-    private func deleteFolder(_ folder: String) {
-        if let index = folders.firstIndex(of: folder) {
-            folders.remove(at: index)
-        }
+    private func deleteFolder(_ folder: Folder) {
+        folderManager.deleteFolder(folder)
     }
 }
 

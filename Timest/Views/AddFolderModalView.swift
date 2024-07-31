@@ -2,7 +2,7 @@ import SwiftUI
 
 struct AddFolderModalView: View {
     @Binding var isPresented: Bool
-    @Binding var folders: [String]
+    @ObservedObject var folderManager: FolderManager  // FolderManagerを観察
     @State private var folderName: String = ""
 
     var body: some View {
@@ -23,7 +23,7 @@ struct AddFolderModalView: View {
 
                 Button("完了") {
                     if !folderName.isEmpty {
-                        folders.append(folderName)
+                        folderManager.addFolder(name: folderName)  // FolderManagerを使ってフォルダを追加
                         isPresented = false
                     }
                 }
@@ -55,9 +55,9 @@ struct AddFolderModalView: View {
 
 struct AddFolderModalView_Previews: PreviewProvider {
     @State static var isPresented = true
-    @State static var folders = ["Sample Folder"]
+    @StateObject static var folderManager = FolderManager()  // プレビュー用にFolderManagerを作成
 
     static var previews: some View {
-        AddFolderModalView(isPresented: $isPresented, folders: $folders)
+        AddFolderModalView(isPresented: $isPresented, folderManager: folderManager)
     }
 }
