@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TaskDetailView: View {
-    @ObservedObject var taskManager: TaskManager
+    @EnvironmentObject var taskManager: TaskManager
     @Binding var task: Task?
     @State private var taskCompleted = false
     @State private var taskName = ""
@@ -10,14 +10,15 @@ struct TaskDetailView: View {
     @State private var commentText = ""
     @State private var showDatePicker = false
     @Environment(\.presentationMode) var presentationMode
-    var folderID: UUID  // 
+    var folderID: UUID  // フォルダID
 
     var body: some View {
         VStack(spacing: 0) {
             HeaderView(iconName: "chevron.left", title: "タスクの詳細") {
-                if taskManager.selectedTask != nil {
+//                print("ボタン押したよ")
+                if task?.isNewTask == false {
                     taskManager.updateTask(
-                        taskManager.selectedTask!,
+                        task!,
                         withName: taskName,
                         pomodoroCount: selectedPomodoroCount,
                         dueDate: selectedDate,
@@ -26,22 +27,23 @@ struct TaskDetailView: View {
                 } else {
                     taskManager.addTask(name: taskName, pomodoroCount: selectedPomodoroCount, dueDate: selectedDate, comments: commentText, folderID: folderID)
                 }
-                taskManager.selectedTask = nil
+//                task?.isNewTask = false
                 presentationMode.wrappedValue.dismiss()
             }
             .padding(.bottom, 10)
             .onAppear {
-                if let selectedTask = taskManager.selectedTask {
-                    print("TaskDetailView loaded with selected task: \(selectedTask)")
-                    taskName = selectedTask.name
-                    taskCompleted = selectedTask.isCompleted
-                    selectedPomodoroCount = selectedTask.pomodoroCount
-                    selectedDate = selectedTask.dueDate
-                    commentText = selectedTask.comments
+                if let task = task, !task.isNewTask {
+                    // 既存タスクの情報を表示する
+                    taskName = task.name
+                    taskCompleted = task.isCompleted
+                    selectedPomodoroCount = task.pomodoroCount
+                    selectedDate = task.dueDate
+                    commentText = task.comments
                 } else {
-                    print("TaskDetailView loaded with no selected task")
+                    // 新規タスクの場合はフィールドを空のままにする
                 }
             }
+
             // Task Information Section
             HStack {
                 Button(action: {
@@ -162,5 +164,15 @@ struct TaskDetailView: View {
                 .padding()
             }
         }
+    }
+}
+
+struct TaskDetailView_Previews: PreviewProvider {
+    @State static var task: Task? = nil
+    @StateObject static var taskManager = TaskManager()
+
+    static var previews: some View {
+        TaskDetailView(task: $task, folderID: UUID())
+            .environmentObject(taskManager)  // ここでTaskManagerを提供
     }
 }

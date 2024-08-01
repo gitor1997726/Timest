@@ -2,9 +2,11 @@ import SwiftUI
 
 struct FolderDetailView: View {
     var folderID: UUID
-    var folderName: String  // フォルダ名を追加
-    @ObservedObject var taskManager: TaskManager
+
+    @EnvironmentObject var folderManager: FolderManager  // FolderManagerを環境オブジェクトとして受け取る
+    @EnvironmentObject var taskManager: TaskManager  // TaskManagerを環境オブジェクトとして受け取る
     @Environment(\.presentationMode) var presentationMode
+    @State private var folderName: String = ""
     @State private var selection = 1
     @State private var showTaskDetailView = false
     @State private var selectedTask: Task?
@@ -21,6 +23,7 @@ struct FolderDetailView: View {
                         TaskItemView(task: task)
                             .onTapGesture {
                                 selectedTask = task
+                                print("selectedTask set to: \(String(describing: selectedTask))")
                                 showTaskDetailView = true
                             }
                             .swipeActions(edge: .trailing) {
@@ -40,16 +43,22 @@ struct FolderDetailView: View {
             .background(Color.black)
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
+            .onAppear {
+                if let folder = folderManager.folders.first(where: { $0.id == folderID }) {
+                    folderName = folder.name
+                }
+            }
 
             VStack {
                 Spacer()
                 HStack {
                     Spacer()
-                    AddTaskButtonView(taskManager: taskManager, folderID: folderID)  // folderIDを渡す
+                    AddTaskButtonView(folderID: folderID)  // folderIDを渡す
                         .padding(.bottom, 20)
                         .padding(.trailing, 20)
                         .onTapGesture {
                             selectedTask = nil
+                            print("selectedTask is set to nil before opening TaskDetailView")
                             showTaskDetailView = true
                         }
                 }
@@ -57,7 +66,8 @@ struct FolderDetailView: View {
         }
         .background(Color.black)
         .fullScreenCover(isPresented: $showTaskDetailView) {
-            TaskDetailView(taskManager: taskManager, task: $selectedTask, folderID: folderID)
+            TaskDetailView(task: $selectedTask, folderID: folderID)
+                .environmentObject(taskManager)  // 環境オブジェクトとしてTaskManagerを渡す
         }
     }
 }
@@ -99,6 +109,8 @@ struct TaskItemView: View {
 
 struct FolderDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        FolderDetailView(folderID: UUID(), folderName: "Sample Folder", taskManager: TaskManager())  // サンプルフォルダIDとフォルダ名
+        FolderDetailView(folderID: UUID())
+            .environmentObject(FolderManager())  // プレビュー用に提供
+            .environmentObject(TaskManager())    // プレビュー用に提供
     }
 }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AddTaskButtonView: View {
-    @ObservedObject var taskManager: TaskManager
+    @EnvironmentObject var taskManager: TaskManager  // 環境オブジェクトとしてTaskManagerを受け取る
     @State private var showTaskDetail = false
     @State private var newTask: Task?  // 初期化はボタンアクションで行う
     var folderID: UUID  // フォルダIDを追加
@@ -21,14 +21,15 @@ struct AddTaskButtonView: View {
         .cornerRadius(38)
         .shadow(radius: 10)
         .fullScreenCover(isPresented: $showTaskDetail) {
-            TaskDetailView(taskManager: taskManager, task: $newTask, folderID: folderID)
-
+            TaskDetailView(task: $newTask, folderID: folderID)
+                .environmentObject(taskManager)  // 環境オブジェクトとしてTaskManagerを渡す
         }
     }
 }
 
 struct AddTaskButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        AddTaskButtonView(taskManager: TaskManager(), folderID: UUID())  // サンプルフォルダID
+        AddTaskButtonView(folderID: UUID())  // サンプルフォルダID
+            .environmentObject(TaskManager())  // プレビューでTaskManagerを提供
     }
 }

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ListView: View {
     @State private var showAddFolderModal = false
-    @StateObject private var folderManager = FolderManager()  // FolderManagerを初期化
+    @EnvironmentObject var folderManager: FolderManager  // FolderManagerを環境オブジェクトとして受け取る
 
     var body: some View {
         NavigationView {
@@ -13,13 +13,12 @@ struct ListView: View {
 
                     // フォルダリスト
                     List {
-                        ForEach(folderManager.folders) { folder in
+                        ForEach(folderManager.folders, id: \.id) { folder in
                             HStack {
                                 FolderItemView(folderName: folder.name)
-                                NavigationLink(destination: FolderDetailView(folderID: folder.id, folderName: folder.name, taskManager: TaskManager())) {
+                                NavigationLink(destination: FolderDetailView(folderID: folder.id)) {
                                     EmptyView()
                                 }
-
                                 .frame(width: 0)
                                 .opacity(0)
                             }
@@ -49,7 +48,8 @@ struct ListView: View {
             }
             .background(Color.black)
             .fullScreenCover(isPresented: $showAddFolderModal) {
-                AddFolderModalView(isPresented: $showAddFolderModal, folderManager: folderManager)
+                AddFolderModalView(isPresented: $showAddFolderModal)
+                    .environmentObject(folderManager)  // 環境オブジェクトを提供
             }
         }
         .navigationBarHidden(true) // NavigationBarを非表示に設定
@@ -63,7 +63,6 @@ struct ListView: View {
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
         ListView()
-            .previewLayout(.device)
-            .preferredColorScheme(.dark)
+            .environmentObject(FolderManager())  // プレビューで提供
     }
 }

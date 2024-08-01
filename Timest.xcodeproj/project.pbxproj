@@ -119,19 +119,19 @@
 		D39EA5E12C509F7E00716671 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2AB6B8D22C48FE6B00924A27 /* CalendarView.swift */,
-				D3A53F512C57B4F700D6053E /* FolderSelectionView.swift */,
 				2AB6B8CE2C48FAF700924A27 /* ListView.swift */,
-				D3A53F532C57C35D00D6053E /* TaskSelectionView.swift */,
-				2A9FC9B92C47B96500078631 /* ContentView.swift */,
+				D3AE99022C4CE9740057F484 /* AddFolderButtonView.swift */,
+				D3AE99002C4CD9FE0057F484 /* AddFolderModalView.swift */,
+				D39EA5E32C5133A900716671 /* FolderItemView.swift */,
 				D36B12222C4E3C840025F787 /* FolderDetailView.swift */,
+				D36B12242C4E3C950025F787 /* AddTaskButtonView.swift */,
 				D36B12262C4E3CA60025F787 /* TaskDetailView.swift */,
+				D3A53F512C57B4F700D6053E /* FolderSelectionView.swift */,
+				D3A53F532C57C35D00D6053E /* TaskSelectionView.swift */,
 				2AB6B8D02C48FE5A00924A27 /* TimerView.swift */,
 				2AB6B8D42C48FE7A00924A27 /* ChartView.swift */,
-				D3AE99002C4CD9FE0057F484 /* AddFolderModalView.swift */,
-				D3AE99022C4CE9740057F484 /* AddFolderButtonView.swift */,
-				D36B12242C4E3C950025F787 /* AddTaskButtonView.swift */,
-				D39EA5E32C5133A900716671 /* FolderItemView.swift */,
+				2A9FC9B92C47B96500078631 /* ContentView.swift */,
+				2AB6B8D22C48FE6B00924A27 /* CalendarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
