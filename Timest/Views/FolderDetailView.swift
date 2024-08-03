@@ -102,8 +102,11 @@ struct TaskItemView: View {
             }
         }
         .padding()
-        .background(Color.secondary)
+        .background(Color.black)
         .cornerRadius(8)
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(Color.green, lineWidth: 2))
     }
 }
 

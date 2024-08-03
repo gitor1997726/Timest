@@ -4,6 +4,8 @@ struct ContentView: View {
     @State private var selection = 0
     @EnvironmentObject var folderManager: FolderManager  // 環境オブジェクトとして受け取る
 
+    @EnvironmentObject var taskManager: TaskManager 
+
     var body: some View {
         ZStack(alignment: .bottom) {
             // Main content area

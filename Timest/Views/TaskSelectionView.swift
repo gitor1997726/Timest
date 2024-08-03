@@ -1,21 +1,21 @@
 import SwiftUI
 
 struct TaskSelectionView: View {
-    let tasks = [
-        ("スケジュール表作成", 3),
-        ("UI作成", 2)
-    ]
+    @EnvironmentObject var taskManager: TaskManager
+    @EnvironmentObject var folderManager: FolderManager
+    @Binding var selectedFolderID: UUID?  // FolderSelectionViewから渡されるフォルダID
+    @Binding var isTaskSelectionViewActive: Bool  // TaskSelectionViewの表示を制御するフラグ
 
     var body: some View {
         VStack {
-            // フォルダ選択ボタン
+            // フォルダ選択ボタン（戻るボタン）
             Button(action: {
-                // フォルダ選択のアクション
+                isTaskSelectionViewActive = false  // フォルダ選択画面に戻る
             }) {
                 HStack {
                     Image(systemName: "folder")
                         .foregroundColor(Color.green)
-                    Text("フォルダ")
+                    Text(folderName)  // フォルダの名前を表示
                         .font(.headline)
                         .foregroundColor(.white)
                     Image(systemName: "chevron.right")
@@ -34,10 +34,9 @@ struct TaskSelectionView: View {
             // タスクカードの表示エリア
             ScrollView {
                 VStack(spacing: 16) {
-                    ForEach(tasks, id: \.0) { task in
-                        TaskCardView(taskName: task.0, pomodoroCount: task.1)
+                    ForEach(taskManager.tasks(forFolderID: selectedFolderID ?? UUID()), id: \.id) { task in
+                        TaskCardView(task: task)  // タスクオブジェクト全体を渡す
                     }
-                    // 追加のタスクカードをここに配置
                 }
                 .padding()
             }
@@ -47,11 +46,19 @@ struct TaskSelectionView: View {
         .frame(maxWidth: .infinity)
         .background(Color.black) // 背景色の設定
     }
+
+    // フォルダの名前を取得する
+    var folderName: String {
+        if let folderID = selectedFolderID,
+           let folder = folderManager.folders.first(where: { $0.id == folderID }) {
+            return folder.name
+        }
+        return "フォルダ"
+    }
 }
 
 struct TaskCardView: View {
-    var taskName: String
-    var pomodoroCount: Int
+    var task: Task
 
     var body: some View {
         HStack {
@@ -61,13 +68,13 @@ struct TaskCardView: View {
 
             VStack(alignment: .leading) {
                 // タスク名
-                Text(taskName)
+                Text(task.name)
                     .font(.headline)
                     .foregroundColor(.white)
 
                 // ポモドーロアイコン
                 HStack(spacing: 4) {
-                    ForEach(0..<pomodoroCount, id: \.self) { _ in
+                    ForEach(0..<task.pomodoroCount, id: \.self) { _ in
                         Image(systemName: "clock")
                             .foregroundColor(Color.green)
                     }
@@ -83,11 +90,18 @@ struct TaskCardView: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.green, lineWidth: 2)
         )
+        .onDrag {
+            // ドラッグジェスチャーの開始時にタスク情報をペイロードとして提供
+            let taskData = "\(task.id)|\(task.name)|\(task.pomodoroCount)"
+            return NSItemProvider(object: taskData as NSString)
+        }
     }
 }
 
 struct TaskSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskSelectionView()
+        TaskSelectionView(selectedFolderID: .constant(nil), isTaskSelectionViewActive: .constant(true))
+            .environmentObject(TaskManager())  // プレビュー用にTaskManagerを設定
+            .environmentObject(FolderManager())  // プレビュー用にFolderManagerを設定
     }
 }

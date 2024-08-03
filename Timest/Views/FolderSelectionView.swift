@@ -1,21 +1,21 @@
 import SwiftUI
 
 struct FolderSelectionView: View {
-    let folders = ["プロジェクト1", "プロジェクト2", "プロジェクト3", "プロジェクト4"]
+    @EnvironmentObject var folderManager: FolderManager  // FolderManagerを環境オブジェクトとして受け取る
+    @EnvironmentObject var taskManager: TaskManager  // TaskManagerを環境オブジェクトとして受け取る
+    @Binding var selectedFolderID: UUID?  // 選択されたフォルダのIDを保持
+    @Binding var isTaskSelectionViewActive: Bool  // TaskSelectionViewの表示を制御するフラグ
 
     var body: some View {
         VStack {
-
-
             ScrollView {
                 VStack(spacing: 16) {
-                    ForEach(folders, id: \.self) { folder in
+                    ForEach(folderManager.folders, id: \.id) { folder in
                         HStack {
                             Image(systemName: "folder")
                                 .foregroundColor(Color.green)
-                            Text(folder)
+                            Text(folder.name)
                                 .foregroundColor(.white)
-//                            Spacer()
                         }
                         .padding()
                         .background(Color.black)
@@ -24,6 +24,10 @@ struct FolderSelectionView: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.green, lineWidth: 2)
                         )
+                        .onTapGesture {
+                            selectedFolderID = folder.id
+                            isTaskSelectionViewActive = true  // TaskSelectionViewを表示するフラグを立てる
+                        }
                     }
                 }
                 .padding(.horizontal, 16)
@@ -36,6 +40,7 @@ struct FolderSelectionView: View {
 
 struct FolderSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        FolderSelectionView()
+        FolderSelectionView(selectedFolderID: .constant(nil), isTaskSelectionViewActive: .constant(false))
+            .environmentObject(FolderManager())  // プレビュー用に環境オブジェクトを設定
     }
 }

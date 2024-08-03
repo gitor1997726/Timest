@@ -22,7 +22,7 @@ struct AddFolderModalView: View {
                 Spacer()
 
                 Button("完了") {
-                    print("完了")
+                
                     if !folderName.isEmpty {
                         folderManager.addFolder(name: folderName)  // FolderManagerを使ってフォルダを追加
                         isPresented = false
